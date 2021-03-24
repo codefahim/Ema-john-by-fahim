@@ -1,0 +1,13 @@
+.main{
+    display: flex;
+}
+.product{
+    width: 70%;
+    margin-left: 5%;
+   
+    border-right: 1px solid gray;
+}
+.card{
+    width: 25%;
+}
+

@@ -1,0 +1,31 @@
+img {
+  width: 200px;
+}
+.header {
+  text-align: center;
+  margin-top: 20px;
+}
+nav {
+  line-height: 40px;
+  background-color: black;
+}
+nav::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+nav a {
+  text-decoration: none;
+  color: aliceblue;
+  padding: 5px 15px;
+  float: left;
+}
+
+nav a:hover {
+  background-color: rgba(241, 196, 15, 0.6);
+}
+input {
+  width: 30%;
+  padding: 9px 0;
+  margin-top: 5px;
+}
