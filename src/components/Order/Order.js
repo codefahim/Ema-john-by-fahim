@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import fakeData from "../../fakeData";
 import successImage from "../../images/giphy.gif";
 import {
   getDatabaseCart,
@@ -13,6 +12,8 @@ import "./Order.css";
 
 const Order = () => {
   const [cart, setCart] = useState([]);
+  console.log(cart)
+ 
   const [orderPlaced, setOrderPlaced] = useState(false);
   const handleRemoveProduct = (productKey) => {
     const newCart = cart.filter((pd) => pd.key !== productKey);
@@ -22,12 +23,15 @@ const Order = () => {
   useEffect(() => {
     const savedData = getDatabaseCart();
     const productsKey = Object.keys(savedData);
-    const cartProduct = productsKey.map((key) => {
-      const product = fakeData.find((productItem) => productItem.key === key);
-      product.quantity = savedData[key];
-      return product;
-    });
-    setCart(cartProduct);
+    fetch(`http://localhost:5000/productsByKeys`,{
+      method:'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(productsKey)
+    })
+    .then(response =>response.json())
+    .then(data => setCart(data))
+
+
   }, []);
 
   const history = useHistory();
@@ -45,6 +49,7 @@ const Order = () => {
   return (
     <>
       <h1>Card Items : {cart.length}</h1>
+      {cart.length == 0 && <p>Loading...</p>}
       <div className="main">
         <div className="product">
           {cart.map((item) => (

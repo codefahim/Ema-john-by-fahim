@@ -3,11 +3,15 @@ import React from "react";
 const Card = (props) => {
   const lenght = props.card.length;
 
+
   const card = props.card;
+ 
+  console.log(card)
   const totalPrice = card.reduce(
-    (total, product) => total + product.price * product.quantity,
+    (total, product) => total + product.price * product.quantity || 1,
     0
   );
+
 
   let vat = 0;
   if (totalPrice > 10 && totalPrice < 100) {
@@ -40,8 +44,8 @@ const Card = (props) => {
         <code
           style={{ display: "block", marginTop: "10px", marginLeft: "5px" }}
         >
-          Item Cost: $<span></span>
-          {totalPrice.toFixed(2)}
+          Item Cost: $<span> {totalPrice.toFixed(2)}</span>
+         
         </code>
         <code
           style={{ display: "block", marginTop: "10px", marginLeft: "5px" }}

@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import "./shop.css";
-import { useState } from "react";
-import fakeData from "../../fakeData";
 import Products from "../products/Products";
 import { Link } from "react-router-dom";
 import Card from "../Card/Card";
@@ -11,22 +9,40 @@ import {
 } from "../../utilities/databaseManager";
 
 const Shop = () => {
-  const products = fakeData;
-  const [product, setProduct] = useState(products);
+  
+  const [product, setProduct] = useState([]);
   const [card, setCard] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/totalProduct`)
+    .then(response =>response.json())
+    .then(data =>setProduct(data))
+  },[])
 
   useEffect(() => {
     const savedCart = getDatabaseCart();
     const productKeys = Object.keys(savedCart);
-    const previewsCart = productKeys.map((exitingKey) => {
-      const selectedProduct = fakeData.find((data) => data.key === exitingKey);
-      selectedProduct.quantity = savedCart[exitingKey];
-      return selectedProduct;
-    });
-    setCard(previewsCart);
-    console.log(previewsCart);
-  }, []);
 
+    fetch(`http://localhost:5000/productByKeys`,{
+      method:'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(productKeys)
+    })
+    .then(response =>response.json())
+    .then(data => setCard(data))
+
+
+    // if(product.length>0){
+    //   const previewsCart = productKeys.map((exitingKey) => {
+    //     const selectedProduct = product.find((data) => data.key === exitingKey);
+    //     selectedProduct.quantity = savedCart[exitingKey];
+    //     return selectedProduct;
+    //   });
+    //   setCard(previewsCart);
+    
+    // }
+
+  }, []);
   const handleClick = (product) => {
     let newCart;
     let countItems = 1;
@@ -35,7 +51,7 @@ const Shop = () => {
       countItems = sameProduct.quantity + 1;
       sameProduct.quantity = countItems;
       const otherProduct = card.filter((pd) => pd.key !== product.key);
-      console.log(otherProduct);
+      
       newCart = [...otherProduct, sameProduct];
     } else {
       product.quantity = 1;
@@ -58,13 +74,14 @@ const Shop = () => {
           ></Products>
         ))}
       </div>
-      <div className="card">
+     <div className="card">
         <Card card={card}>
           <Link to="/Order">
             <button>Review Order</button>
           </Link>
         </Card>
       </div>
+     
     </div>
   );
 };
