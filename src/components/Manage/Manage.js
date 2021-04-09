@@ -7,7 +7,7 @@ const products ={}
   //send data to server
 const handleAddProduct=()=>{
   
-    fetch(`http://localhost:5000/products`,{
+    fetch(`https://shielded-basin-68218.herokuapp.com/products`,{
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(products)

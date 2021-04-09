@@ -23,7 +23,7 @@ const Order = () => {
   useEffect(() => {
     const savedData = getDatabaseCart();
     const productsKey = Object.keys(savedData);
-    fetch(`http://localhost:5000/productsByKeys`,{
+    fetch(`https://shielded-basin-68218.herokuapp.com/productsByKeys`,{
       method:'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(productsKey)

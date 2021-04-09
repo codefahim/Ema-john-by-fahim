@@ -96,10 +96,10 @@ function Login() {
   };
 
   return (
-    <div className="App">
+    <div className='App'>
       <h1>Google Sign In System</h1>
-      <input type="email" placeholder="Enter Your Email" />
-      {!user.isSignedIn && (
+      <input type='email' placeholder='Enter Your Email' />
+      {!user?.isSignedIn && (
         <button onClick={GoogleSignIn}>Google SignIn</button>
       )}
       {user.isSignedIn && (
@@ -108,55 +108,55 @@ function Login() {
       {user.isSignedIn && (
         <div>
           <p>{user.name}</p>
-          <img src={user.photo} alt="mm" />
+          <img src={user.photo} alt='mm' />
           <p>{user.email}</p>
         </div>
       )}
       <h4>Email And pass login</h4>
       <input
-        type="checkbox"
+        type='checkbox'
         onChange={() => setNewUser(!newUser)}
-        name="user"
-        id=""
+        name='user'
+        id=''
       />
-      <label htmlFor="user">New User</label>{" "}
-      <form action="" onSubmit={handleSubmit} style={{ marginTop: "25px" }}>
+      <label htmlFor='user'>New User</label>{' '}
+      <form action='' onSubmit={handleSubmit} style={{ marginTop: '25px' }}>
         {newUser && (
           <input
-            type="text"
+            type='text'
             onBlur={handleChange}
-            name="name"
-            placeholder="user Name"
-            style={{ marginTop: "5px", width: "15%", padding: "10px 0" }}
+            name='name'
+            placeholder='user Name'
+            style={{ marginTop: '5px', width: '15%', padding: '10px 0' }}
             required
           />
         )}
         <br />
         <input
-          type="text"
+          type='text'
           onBlur={handleChange}
-          placeholder="Email/userId"
-          name="email"
+          placeholder='Email/userId'
+          name='email'
           required
-          style={{ marginTop: "5px", width: "15%", padding: "10px 0" }}
+          style={{ marginTop: '5px', width: '15%', padding: '10px 0' }}
         />
         <br />
         <input
-          type="password"
-          name="password"
+          type='password'
+          name='password'
           onBlur={handleChange}
-          placeholder="password"
+          placeholder='password'
           required
-          style={{ marginTop: "5px", width: "15%", padding: "10px 0" }}
+          style={{ marginTop: '5px', width: '15%', padding: '10px 0' }}
         />
         <br />
         <em>Password must have 8 length, 1 special Char, 1 Uppercach </em>
         <br />
-        {newUser && <input type="submit" value="SignUp" />}
-        {!newUser && <input type="submit" value="SignIn" />}
+        {newUser && <input type='submit' value='SignUp' />}
+        {!newUser && <input type='submit' value='SignIn' />}
       </form>
-      {user.sofol && <em style={{ color: "green" }}>{user.sofol}</em>}
-      <em style={{ color: "red", fontWeight: "bold" }}> {user.error}</em>
+      {user.sofol && <em style={{ color: 'green' }}>{user.sofol}</em>}
+      <em style={{ color: 'red', fontWeight: 'bold' }}> {user.error}</em>
       <h4>Login with Facebook</h4>
       <button onClick={FbSignIn}>Login With Facebook</button>
     </div>

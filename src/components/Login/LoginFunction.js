@@ -7,7 +7,19 @@ export const FirebaseInt = () => {
     firebase.initializeApp(firebaseConfig);
   }
 };
-
+//set user token
+const setUserToken = () => {
+  firebase
+    .auth()
+    .currentUser.getIdToken(/* forceRefresh */ true)
+    .then(function (idToken)
+    {
+      sessionStorage.setItem('token',idToken)
+    })
+    .catch(function (error) {
+      // Handle error
+    });
+};
 // Google Sign IN System start
 
 export const handleGoogleSignIn = () => {
@@ -23,7 +35,7 @@ export const handleGoogleSignIn = () => {
         email: email,
         photo: photoURL,
       };
-
+setUserToken();
       return SignInUser;
     })
     .catch((error) => {

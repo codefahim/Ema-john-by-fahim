@@ -14,7 +14,7 @@ const Shop = () => {
   const [card, setCard] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/totalProduct`)
+    fetch(`https://shielded-basin-68218.herokuapp.com/totalProduct`)
     .then(response =>response.json())
     .then(data =>setProduct(data))
   },[])
@@ -23,7 +23,7 @@ const Shop = () => {
     const savedCart = getDatabaseCart();
     const productKeys = Object.keys(savedCart);
 
-    fetch(`http://localhost:5000/productByKeys`,{
+    fetch(`https://shielded-basin-68218.herokuapp.com/productByKeys`,{
       method:'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(productKeys)
