@@ -12,12 +12,17 @@ const Shop = () => {
   
   const [product, setProduct] = useState([]);
   const [card, setCard] = useState([]);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
-    fetch(`https://shielded-basin-68218.herokuapp.com/totalProduct`)
-    .then(response =>response.json())
-    .then(data =>setProduct(data))
-  },[])
+    // fetch(`https://shielded-basin-68218.herokuapp.com/totalProduct`)
+    fetch(
+      `https://shielded-basin-68218.herokuapp.com/totalProduct?search=` +
+        search
+    )
+      .then((response) => response.json())
+      .then((data) => setProduct(data));
+  }, [search]);
 
   useEffect(() => {
     const savedCart = getDatabaseCart();
@@ -43,6 +48,10 @@ const Shop = () => {
     // }
 
   }, []);
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    console.log(e.target.value);
+  };
   const handleClick = (product) => {
     let newCart;
     let countItems = 1;
@@ -62,9 +71,26 @@ const Shop = () => {
   };
 
   return (
-    <div className="main">
-      <div className="product">
-      {product.length == 0 && <p>Loading...</p>}
+    <div className='main'>
+      <div className='product'>
+        <input
+         
+         
+         
+          type='text'
+        
+        
+        
+             onBlur={handleSearch}
+        
+        
+        
+             placeholder='Search your products'
+       
+       
+       
+        />
+        {product.length == 0 && <p>Loading...</p>}
         {product.map((item) => (
           <Products
             key={item.key}
@@ -74,14 +100,13 @@ const Shop = () => {
           ></Products>
         ))}
       </div>
-     <div className="card">
+      <div className='card'>
         <Card card={card}>
-          <Link to="/Order">
+          <Link to='/Order'>
             <button>Review Order</button>
           </Link>
         </Card>
       </div>
-     
     </div>
   );
 };
